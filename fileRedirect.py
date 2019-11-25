@@ -9,13 +9,16 @@ text=(".txt",".docx",".rtf",".doc")
 video=(".mp4",".mov")
 audio=(".mp3",".flac",".wav")
 pdf=(".pdf",".eps")
+ppt=(".ppt",".pptx")
+excel=(".xls",".xlsm",".xlsx")
+zips=(".zip",".tar",".rar",".gz")
 
 
 class Handler(FileSystemEventHandler):
     def on_created(self,event):
         for fileName in os.listdir(downloads):
             index=fileName.rfind('.')
-            ext=fileName[index:].lower()
+            ext=fileName[index:]
             # print(ext)
             if ext in pic:
                 os.rename(downloads+"\\"+fileName,downloads+"\\Pictures\\"+fileName)
@@ -27,6 +30,13 @@ class Handler(FileSystemEventHandler):
                 os.rename(downloads+"\\"+fileName,downloads+"\\Video\\"+fileName)
             elif ext in audio:
                 os.rename(downloads+"\\"+fileName,downloads+"\\Audio\\"+fileName)
+            elif ext in ppt:
+                os.rename(downloads+"\\"+fileName,downloads+"\\PowerPoint\\"+fileName)
+            elif ext in excel:
+                os.rename(downloads+"\\"+fileName,downloads+"\\Excel\\"+fileName)
+            elif ext in zips:
+                os.rename(downloads+"\\"+fileName,downloads+"\\Zip\\"+fileName)
+
 
 
 eventHandler= Handler()
