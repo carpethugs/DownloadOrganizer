@@ -21,21 +21,29 @@ class Handler(FileSystemEventHandler):
             ext=fileName[index:]
             # print(ext)
             if ext in pic:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Pictures\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Pictures\\")
             elif ext in pdf:
-                os.rename(downloads+"\\"+fileName,downloads+"\\PDF\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\PDF\\")
             elif ext in text:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Text\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Text\\")
             elif ext in video:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Video\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Video\\")
             elif ext in audio:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Audio\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Audio\\")
             elif ext in ppt:
-                os.rename(downloads+"\\"+fileName,downloads+"\\PowerPoint\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\PowerPoint\\")
             elif ext in excel:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Excel\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Excel\\")
             elif ext in zips:
-                os.rename(downloads+"\\"+fileName,downloads+"\\Zip\\"+fileName)
+                checkFileExists(fileName,fileName,downloads+"\\Zip\\")
+    
+
+def checkFileExists(original,fileName,folder):
+    if fileName in os.listdir(folder):
+        checkFileExists(original,"Copy Of "+fileName,folder)
+    else:
+        os.rename(downloads+"\\"+original,folder+fileName)
+
 
 
 
