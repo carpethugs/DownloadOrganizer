@@ -3,6 +3,7 @@ from watchdog.events import FileSystemEventHandler
 import os
 import time
 
+user="C:\\Users\\danme\\"
 downloads="C:\\Users\\danme\\Downloads\\"
 pic=(".png",".jpg",".jpeg",".raw",".svg",".gif",".tiff",".JPG")
 text=(".txt",".docx",".rtf",".doc")
@@ -19,33 +20,37 @@ class Handler(FileSystemEventHandler):
     def on_created(self,event):
         for fileName in os.listdir(downloads):
             index=fileName.rfind('.')
-            ext=fileName[index:]
+            ext=fileName[index:].lower()
+            df=downloads+fileName
             if ext in pic:
-                rename_test(downloads+fileName,downloads+"Pictures\\"+fileName)
+                rename_test(df,user+"Pictures\\Downloaded\\"+fileName)
             elif ext in pdf:
-                rename_test(downloads+fileName,downloads+"PDF\\"+fileName)
+                rename_test(df,downloads+"PDF\\"+fileName)
             elif ext in text:
-                rename_test(downloads+fileName,downloads+"Text\\"+fileName)
+                rename_test(df,downloads+"Text\\"+fileName)
             elif ext in video:
-                rename_test(downloads+fileName,downloads+"Video\\"+fileName)
+                rename_test(df,downloads+"Video\\"+fileName)
             elif ext in audio:
-                rename_test(downloads+fileName,downloads+"Audio\\"+fileName)
+                rename_test(df,downloads+"Audio\\"+fileName)
+            elif ext in pdf:
+                rename_test(df,downloads+"PDF\\"+fileName)
             elif ext in ppt:
-                rename_test(downloads+fileName,downloads+"PowerPoint\\"+fileName)
+                rename_test(df,downloads+"PowerPoint\\"+fileName)
             elif ext in excel:
-                rename_test(fileName,fileName,downloads+"Excel\\"+fileName)
+                rename_test(df,downloads+"Excel\\"+fileName)
             elif ext in zips:
-                rename_test(fileName,fileName,downloads+"Zip\\"+fileName)
+                rename_test(df,downloads+"Zip\\"+fileName)
             elif ext in code:
-                rename_test(fileName,fileName,downloads+"code\\"+fileName)
-    
+                rename_test(df,downloads+"code\\"+fileName)
+                        
+            
+
 
 def rename_test(oldName,newName):
     try:
         os.rename(oldName,newName)
     except FileExistsError:
         rename_test(oldName,newName+" Copy")
-
 
 eventHandler= Handler()
 observer = Observer()
