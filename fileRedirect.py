@@ -50,7 +50,9 @@ def rename_test(oldName,newName):
     try:
         os.rename(oldName,newName)
     except FileExistsError:
-        rename_test(oldName,newName+" Copy")
+        index=newName.rfind('.')
+        ext=newName[index:].lower()
+        rename_test(oldName,newName[:index]+" Copy"+ext)
 
 eventHandler= Handler()
 observer = Observer()
